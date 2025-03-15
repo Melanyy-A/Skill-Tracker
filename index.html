@@ -114,6 +114,31 @@
             );
         }
 
+        .task-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            padding: 10px;
+            background: #f9fafb; /* Light Background */
+            border: 1px solid #e5e7eb; /* Light Border */
+            border-radius: 5px;
+        }
+
+        .task-item button {
+            padding: 5px 10px;
+            background-color: #1e3a8a; /* Dark Blue */
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .task-item button:hover {
+            background-color: #2563eb; /* Lighter Blue */
+        }
+
         .three-dots {
             position: absolute;
             top: 10px;
@@ -152,30 +177,6 @@
 
         .dropdown-menu button:hover {
             background-color: #e5e7eb;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .container {
-                padding: 15px;
-            }
-
-            .add-skill {
-                font-size: 14px;
-                padding: 8px 16px;
-            }
-
-            .skill-title {
-                font-size: 14px;
-            }
-
-            .three-dots {
-                font-size: 18px;
-            }
-
-            .dropdown-menu {
-                width: 120px; /* Slightly smaller for mobile */
-            }
         }
     </style>
 </head>
@@ -253,14 +254,12 @@
             const skillList = document.getElementById("skill-list");
             skillList.innerHTML = "";
 
-            // Sort skills by level in descending order
             skills.sort((a, b) => b.level - a.level);
 
             skills.forEach((skill, index) => {
                 const skillItem = document.createElement("li");
                 skillItem.className = "skill-item";
 
-                // Add click event to open the skill page
                 skillItem.onclick = () => openSkillPage(index);
 
                 const expPercentage = Math.min(
@@ -308,8 +307,8 @@
 
                 taskItem.innerHTML = `
                     <span>${task.name} - ${task.exp} EXP</span>
-                    <button onclick="removeExp(${index}, ${taskIndex})">-</button>
-                    <button onclick="addExp(${index}, ${taskIndex})">+</button>
+                    <button onclick="event.stopPropagation(); removeExp(${index}, ${taskIndex})">-</button>
+                    <button onclick="event.stopPropagation(); addExp(${index}, ${taskIndex})">+</button>
                 `;
 
                 taskList.appendChild(taskItem);
